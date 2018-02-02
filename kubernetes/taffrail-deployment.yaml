@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: taffrail
+  namespace: default
+  labels:
+    k8s-app: taffrail
+spec:
+  selector:
+    matchLabels:
+      k8s-app: taffrail
+  template:
+    metadata:
+      name: taffrail
+      labels:
+        k8s-app: taffrail
+    spec:
+      serviceAccountName: taffrail
+      containers:
+      - name: taffrail
+        ports:
+          - containerPort: 5000
+        image: taffrail/server
+        imagePullPolicy: Always
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: taffrail-service
+spec:
+  selector:
+    k8s-app: taffrail
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+  type: LoadBalancer

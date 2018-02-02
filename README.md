@@ -18,7 +18,7 @@ The deployment will expose taffrail using a LoadBalancer type IP address.
 You can check the status of the External IP using:
 
 ```
-$ kubectl get svc/taffrail-service
+$ kubectl get svc/taffrail-service --watch
 ```
 
 ## API
